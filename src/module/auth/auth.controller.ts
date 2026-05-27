@@ -18,7 +18,7 @@ const register = async (req: Request, res: Response) => {
 
     const data = {
       success: true,
-      message: "User register successfully",
+      message: "User registered successfully",
       statusCode: StatusCodes.CREATED,
       data: result.rows[0],
     };
@@ -40,7 +40,7 @@ const login = async (req: Request, res: Response) => {
     const { email, password } = req.body;
     // console.log({ email, password });
     const result = await authService.loginUserFromDB(password, email);
-    const { refreshToken } = result;
+    const { refreshToken, accessToken, user } = result;
     res.cookie("refreshToken", refreshToken, {
       secure: false, // in production true
       httpOnly: true,
@@ -50,7 +50,7 @@ const login = async (req: Request, res: Response) => {
       success: true,
       message: "Login successful",
       statusCode: StatusCodes.OK,
-      data: result,
+      data: { token: accessToken, user },
     };
     sendResponse(res, data);
   } catch (error: any) {

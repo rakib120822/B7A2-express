@@ -66,11 +66,12 @@ const loginUserFromDB = async (password: string, email: string) => {
     expiresIn: "10d",
   });
 
-  return { accessToken, refreshToken };
+  delete user.password;
+  return { accessToken, user, refreshToken };
 };
 
 const generateRefreshToken = async (token: string) => {
-//   console.log("from service");
+  //   console.log("from service");
   if (!token) {
     throw new Error("Unauthorized access");
   }
