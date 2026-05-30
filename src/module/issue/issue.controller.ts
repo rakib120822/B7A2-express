@@ -101,18 +101,39 @@ const updateIssue = async (req: Request, res: Response) => {
     const data = {
       success: false,
       message: error.message,
-      statusCode:StatusCodes.BAD_REQUEST,
+      statusCode: StatusCodes.BAD_REQUEST,
       data: error,
     };
     sendResponse(res, data);
   }
 };
 
+const deleteIssue = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id as string;
+    const result = await issueService.deleteIssue(id);
+    const data = {
+      success: true,
+      message: "Issue deleted successfully",
+      statusCode: StatusCodes.OK,
+    };
+    sendResponse(res, data);
+  } catch (error: any) {
+    const data = {
+      success: false,
+      message: error.message,
+      statusCode: StatusCodes.BAD_REQUEST,
+      data: error,
+    };
+    sendResponse(res, data);
+  }
+};
 const issueController = {
   createIssues,
   getAllIssues,
   getIssueById,
   updateIssue,
+  deleteIssue
 };
 
 export default issueController;

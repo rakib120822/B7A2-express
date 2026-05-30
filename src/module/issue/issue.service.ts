@@ -155,11 +155,38 @@ const updateIssue = async (
   return result.rows[0];
 };
 
+// delete route
+const deleteIssue = async (id: string) => {
+  const issue = await pool.query(
+    `
+    
+    SELECT * FROM issues WHERE id=$1
+    
+    `,
+    [id],
+  );
+  if (issue.rowCount == 0) {
+    throw new Error("Issue is not found");
+  }
+
+  const result = await pool.query(
+    `
+    
+    DELETE FROM issues WHERE id=$1 RETURNING *
+    
+    `,
+    [id],
+  );
+
+  return result.rows[0];
+};
+
 const issueService = {
   createIssues,
   getAllIssues,
   getIssueById,
   updateIssue,
+  deleteIssue,
 };
 
 export default issueService;
