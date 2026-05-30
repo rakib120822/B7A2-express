@@ -92,11 +92,37 @@ const getAllIssues = async (
   }
 };
 
-
+const getIssueById = async (id: number) => {
+  try {
+    const result = await pool.query(
+      `
+    
+    SELECT * FROM issues WHERE id=$1
+    
+    `,
+      [id],
+    );
+    const issue = result.rows[0];
+    const userData = await pool.query(
+      `
+      
+      SELECT name,id,role FROM users WHERE id=$1
+      
+      `,
+      [issue.reported_id],
+    );
+    const user = userData.rows[0];
+    issue.reporter = user;
+    return issue;
+  } catch (error: any) {
+    throw new Error("issue Service logic error");
+  }
+};
 
 const issueService = {
   createIssues,
   getAllIssues,
+  getIssueById,
 };
 
 export default issueService;

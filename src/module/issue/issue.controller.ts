@@ -44,9 +44,35 @@ const getAllIssues = async (req: Request, res: Response) => {
   }
 };
 
+// get issue by id
+const getIssueById = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id as string;
+    const issueId: number = Number(id);
+    const result = await issueService.getIssueById(issueId);
+    // console.log(result);
+    const data = {
+      success: true,
+      message: "Issues retrieved successfully",
+      statusCode: StatusCodes.OK,
+      data: result,
+    };
+    sendResponse(res, data);
+  } catch (error: any) {
+    const data = {
+      success: false,
+      message: error.message,
+      statusCode: StatusCodes.BAD_REQUEST,
+      data: error,
+    };
+    sendResponse(res, data);
+  }
+};
+
 const issueController = {
   createIssues,
   getAllIssues,
+  getIssueById,
 };
 
 export default issueController;
