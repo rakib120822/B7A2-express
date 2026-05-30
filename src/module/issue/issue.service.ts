@@ -135,12 +135,11 @@ const updateIssue = async (
   if (issue.rowCount == 0) {
     throw new Error("issue is not found");
   }
-
   if (
-    role == "contributor" &&
-    issue.rows[0].reported_id != id &&
-    issue.rows[0].status != "open"
+    role === "contributor" &&
+    (issue.rows[0].reported_id !== id || issue.rows[0].status !== "open")
   ) {
+
     throw new Error("UnAuthorized access");
   }
   const result = await pool.query(

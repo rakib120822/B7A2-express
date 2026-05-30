@@ -73,6 +73,7 @@ const getIssueById = async (req: Request, res: Response) => {
 const updateIssue = async (req: Request, res: Response) => {
   try {
     const id = req.params.id as string;
+    const user = req.user;
     const {
       title,
       description,
@@ -86,8 +87,8 @@ const updateIssue = async (req: Request, res: Response) => {
       title,
       description,
       type,
-      id: 1,
-      role: "maintainer",
+      id: user?.id,
+      role: user?.role,
     };
     const result = await issueService.updateIssue(id, payload);
     const data = {
@@ -133,7 +134,7 @@ const issueController = {
   getAllIssues,
   getIssueById,
   updateIssue,
-  deleteIssue
+  deleteIssue,
 };
 
 export default issueController;

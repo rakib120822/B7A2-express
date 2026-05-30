@@ -6,7 +6,7 @@ import config from "../config";
 import { pool } from "../db";
 import type { ROLES } from "../type";
 
-const auth = (...roles: ROLES[]) => {
+export const auth = (...roles: ROLES[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       const token = req.headers.authorization;
@@ -52,7 +52,6 @@ const auth = (...roles: ROLES[]) => {
         };
         return sendResponse(res, data);
       }
-
       req.user = decoded;
       next();
     } catch (error: any) {
