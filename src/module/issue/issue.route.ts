@@ -6,6 +6,7 @@ const router: Router = Router();
 router.post("/", issueController.createIssues);
 router.get("/", issueController.getAllIssues);
 router.get("/:id", issueController.getIssueById);
+router.patch("/:id", issueController.updateIssue);
 
 const issueRoutes = router;
 export default issueRoutes;

@@ -69,10 +69,50 @@ const getIssueById = async (req: Request, res: Response) => {
   }
 };
 
+// update issue
+const updateIssue = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id as string;
+    const {
+      title,
+      description,
+      type,
+    }: {
+      title: string;
+      description: string;
+      type: string;
+    } = req.body;
+    const payload = {
+      title,
+      description,
+      type,
+      id: 1,
+      role: "maintainer",
+    };
+    const result = await issueService.updateIssue(id, payload);
+    const data = {
+      success: true,
+      message: "Issue updated successfully",
+      statusCode: StatusCodes.OK,
+      data: result,
+    };
+    sendResponse(res, data);
+  } catch (error: any) {
+    const data = {
+      success: false,
+      message: error.message,
+      statusCode:StatusCodes.BAD_REQUEST,
+      data: error,
+    };
+    sendResponse(res, data);
+  }
+};
+
 const issueController = {
   createIssues,
   getAllIssues,
   getIssueById,
+  updateIssue,
 };
 
 export default issueController;
