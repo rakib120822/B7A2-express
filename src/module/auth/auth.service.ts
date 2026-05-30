@@ -8,7 +8,7 @@ import config from "../../config";
 const registerUserIntoDB = async (payload: IUser) => {
   const { name, email, password, role } = payload;
   const hashPassword = await bcrypt.hash(password, 10);
-  console.log(hashPassword);
+//   console.log(hashPassword);
 
   const result = await pool.query(
     `

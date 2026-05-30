@@ -7,6 +7,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import { StatusCodes } from "http-status-codes";
 import { authRoutes } from "./module/auth/auth.route";
+import issueRoutes from "./module/issue/issue.route";
 
 const app: Application = express();
 
@@ -20,6 +21,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use("/api/auth", authRoutes);
+app.use("/api/issues", issueRoutes);
 
 app.get("/test", (req: Request, res: Response) => {
   res.status(StatusCodes.OK).json({
