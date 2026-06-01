@@ -8,6 +8,7 @@ import cookieParser from "cookie-parser";
 import { StatusCodes } from "http-status-codes";
 import { authRoutes } from "./module/auth/auth.route";
 import issueRoutes from "./module/issue/issue.route";
+import { globalErrorHandler } from "./middleware/globalErrorHandler";
 
 const app: Application = express();
 
@@ -30,4 +31,5 @@ app.get("/test", (req: Request, res: Response) => {
   });
 });
 
+app.use(globalErrorHandler);
 export default app;

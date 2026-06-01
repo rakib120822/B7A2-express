@@ -1,7 +1,12 @@
 import { pool } from "../../db";
 
 // create issues
-const createIssues = async (payload: any) => {
+const createIssues = async (payload: {
+  title: string;
+  description: string;
+  type: string;
+  email: string;
+}) => {
   const { title, description, type, email } = payload;
   const userData = await pool.query(
     `
@@ -139,7 +144,6 @@ const updateIssue = async (
     role === "contributor" &&
     (issue.rows[0].reported_id !== id || issue.rows[0].status !== "open")
   ) {
-
     throw new Error("UnAuthorized access");
   }
   const result = await pool.query(
