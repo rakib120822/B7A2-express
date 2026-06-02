@@ -2,8 +2,7 @@
 
 A collaborative platform for software teams to report bugs, suggest features, and coordinate resolutions efficiently. 
 
-**Live URL:** [https://your-live-project-url.com](https://your-live-project-url.com) *(Replace with your actual deployment link)*
-
+**Live URL:** https://b7-a2-alpha.vercel.app/*
 ---
 
 ## 🚀 Features
@@ -66,7 +65,7 @@ The relational PostgreSQL database contains two main entities, maintaining impli
 * `GET /api/issues` - Get all filtered and sorted issues.
     * *Query Parameters:* `?status=open&type=bug&sortBy=created_at&sortOrder=desc`
 * `GET /api/issues/:id` - Fetch single issue details.
-* `PUT /api/issues/:id` - Update issue criteria (Title, description, type, status).
+* `PATCH /api/issues/:id` - Update issue criteria (Title, description, type, status).
 * `DELETE /api/issues/:id` - Delete an entry from the tracking cycle.
 
 ---
